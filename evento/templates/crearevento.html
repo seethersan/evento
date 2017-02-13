@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Evento{% endblock %}
+{% block contenido %}
+    {% include 'mainnav.html' %}
+<div id="contact">
+      {{ form.as_p }}
+    <button id="crear">Crear Evento</button>
+</div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+var autocomplete, longitud, latitud;
+var nombre = document.getElementById('id_nombre');
+var descripcion = document.getElementById('id_descripcion');
+var direccion = document.getElementById('id_direccion');
+var pais = document.getElementById('id_pais');
+
+var onLoaded = function() {
+   // I am assuming your field has id of where_load, it might be different
+    autocomplete = new google.maps.places.Autocomplete(direccion);
+    autocomplete.addListener('place_changed', fillInAddress);
+
+    longitud = document.getElementById('id_longitud');
+    longitud.disabled = true;
+
+    latitud = document.getElementById('id_latitud');
+    latitud.disabled = true;
+}
+
+function fillInAddress() {
+    var place = autocomplete.getPlace();
+    longitud.value = parseFloat(place.geometry.location.lng())
+    latitud.value = parseFloat(place.geometry.location.lat())
+}
+
+$(function () {
+    $('#crear').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: '{% url "crearevento" %}',
+            type: 'POST',
+            data: {
+                nombre: nombre.value,
+                descripcion: descripcion.value,
+                direccion: direccion.value,
+                longitud: longitud.value,
+                latitud: latitud.value,
+                pais: pais.value,
+                usuario: '{{ request.user.username }}',
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function(response) {
+                console.log(response)
+                location.reload()
+            }
+        })
+    });
+});
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVk9tiL4EUnUuhfHAAkn_JiIJ5bOFCvS4&libraries=places&callback=onLoaded" async defer></script>
+{% endblock %}

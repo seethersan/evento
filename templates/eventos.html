@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<div id="about">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <div class="about-heading">
+                    <h2>Eventos</h2>
+                    <p>Aqui encontrará los 3 eventos más relevantes de la semana.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--about wrapper left-->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xs-12 hidden-sm col-md-5">
+
+                <div class="about-left">
+                    <img src="{% static 'images/about/about1.jpg' %}" alt="">
+                </div>
+
+            </div>
+
+            <!--about wrapper right-->
+            <div class="col-xs-12 col-md-7">
+                <div class="about-right">
+                    <div class="about-right-heading">
+                        <h1>Eventos</h1>
+                    </div>
+
+                    {% for evento in eventos %}
+                        <div class="about-right-boot">
+                            <div class="about-right-wrapper">
+                                <a href="{% url 'detalle' pk=evento.id %}"><h3>{{ evento.nombre }}</h3></a>
+                                <p>{{ evento.descripcion }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

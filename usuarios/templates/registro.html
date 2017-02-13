@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Registro{% endblock %}
+
+{% block contenido %}
+
+{% include 'mainnav.html' %}
+
+<div class="content">
+    <form action="" method="post" role="form" class="form contactForm" enctype='multipart/form-data'>
+        {% csrf_token %}
+         <div class="col-md-4">
+             <div class="form-group">
+                {{ form.as_p }}
+            </div>
+         </div>
+        <input type="submit" value="registro" class="btn btn-default">
+    </form>
+</div>
+{% endblock %}

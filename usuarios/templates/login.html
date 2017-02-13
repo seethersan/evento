@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Log In{% endblock %}
+
+{% block contenido %}
+
+{% include 'mainnav.html' %}
+
+<div class="content">
+    <form action="" method="post" role="form" class="form contactForm">
+        {% csrf_token %}
+         <div class="col-md-4">
+             <div class="form-group">
+                {{ form.as_p }}
+             </div>
+         </div>
+        <input type="submit" value="ingreso" class="btn btn-default">
+    </form>
+</div>
+{% endblock %}

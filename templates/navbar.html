@@ -1,0 +1,17 @@
+{% if request.path == "/" %}
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">Eventos</a></li>
+{% else %}
+    <li><a href="{% url 'home' %}">Home</a></li>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+    <li><a href="{% url 'crearevento' %}">Crear Evento</a></li>
+    <li>Usuario:</li><li><a href="{% url 'perfil'  %}">{{ request.user.first_name }}</a></li><li><a href="{% url 'logout' %}">Cerrar Sesion</a></li>
+{% else %}
+    <li><a href="{% url 'registro' %}">Registrate!</a></li>
+    <li><a href="{% url 'login' %}">Log In</a></li>
+{% endif %}
+<li class="hidden-sm hidden-xs">
+    <a href="#" id="ss"><i class="fa fa-search" aria-hidden="true"></i></a>
+</li>

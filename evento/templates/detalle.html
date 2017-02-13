@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Evento{% endblock %}
+
+{% block contenido %}
+    {% include 'mainnav.html' %}
+<div id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <div class="contact-heading">
+                    <h2>{{ evento.nombre }}</h2>
+                    <h3>Decripción: {{ evento.descripcion }}</h3>
+                    <h3>Dirección: {{ evento.direccion }}</h3>
+                    <h3>País: {{ envento.pais.nombre }}</h3>
+                    <h3>Creado por: {{ evento.usuario }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+<div id="map" style="width: 500px; height: 400px;"></div>
+</div>
+<script>
+var map;
+function initMap() {
+  var lat = "{{ evento.latitud }}".replace(",",".");
+  var lng = "{{ evento.longitud }}".replace(",",".");
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: parseFloat(lat), lng: parseFloat(lng)},
+    zoom: 8
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVk9tiL4EUnUuhfHAAkn_JiIJ5bOFCvS4&callback=initMap" async defer></script>
+
+{% endblock %}
